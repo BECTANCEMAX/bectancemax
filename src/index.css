@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+/* ───────── BECTANCEMAX — jetons de thème (shadcn / Tailwind v4) ─────────
+   Identité : noir, blanc, gris. Le vert ne sert qu'à souligner les statistiques. */
+:root {
+  --radius: 0.875rem;
+  --background: #000000;
+  --foreground: #f5f5f5;
+  --card: #0f0f0f;
+  --card-foreground: #f5f5f5;
+  --popover: #111111;
+  --popover-foreground: #f5f5f5;
+  --primary: #3ecf62; /* vert BECTANCEMAX — usage parcimonieux */
+  --primary-foreground: #ffffff;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f5;
+  --muted: #171717;
+  --muted-foreground: #a3a3a3;
+  --accent: #1f1f1f;
+  --accent-foreground: #f5f5f5;
+  --destructive: #ef5350;
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: rgba(255, 255, 255, 0.4);
+  --telegram: #229ed9;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-logo: "Montserrat", "Inter Variable", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    font-feature-settings: "cv11", "ss01";
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* ───────── Menu du site (bouton « hamburger » + panneau) ───────── */
+.site-menu-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -8px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  cursor: pointer;
+  color: #fff;
+}
+.site-menu-btn:active {
+  background: rgba(255, 255, 255, 0.08);
+}
+.site-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.45);
+  animation: site-menu-fade 0.18s ease-out;
+}
+.site-menu-panel {
+  position: fixed;
+  z-index: 61;
+  top: calc(env(safe-area-inset-top) + 60px);
+  right: 12px;
+  width: min(300px, calc(100vw - 24px));
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: rgba(14, 14, 14, 0.94);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: site-menu-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.site-menu-panel a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 50px;
+  padding: 0 14px;
+  border-radius: 13px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+}
+.site-menu-panel a svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+}
+.site-menu-panel a:hover,
+.site-menu-panel a:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+.site-menu-panel a[aria-current="page"] {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.site-menu-panel hr {
+  height: 1px;
+  margin: 6px 8px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+@keyframes site-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+}
+@keyframes site-menu-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-menu-panel,
+  .site-menu-backdrop {
+    animation: none;
+  }
+}
